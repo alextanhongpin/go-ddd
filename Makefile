@@ -8,4 +8,4 @@ export
 include Makefile.db Makefile.cli
 
 start:
-	@go run cmd/server/main.go
+	@go run cmd/server/*.go

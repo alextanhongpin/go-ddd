@@ -15,17 +15,14 @@ type UserCrud struct {
 	// Public variables.
 	Repository domain.UserRepository
 	Service    domain.UserService
-	Controller *Controller // The last layer is usually not an interface, but an implementation.
 }
 
 func New(db *sql.DB) *UserCrud {
 	repo := NewRepository(db)
 	svc := NewService(repo)
-	ctl := NewController(svc)
 
 	return &UserCrud{
 		Repository: repo,
 		Service:    svc,
-		Controller: ctl,
 	}
 }
