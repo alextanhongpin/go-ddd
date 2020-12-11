@@ -9,3 +9,8 @@ It would be great if we can separate golang domains (user, comment) into individ
 - circular dependency. Say if we have a `/user` and `/comment` folder, and we want to add a method to get user comments for both folder. This would not work due to circular dependency. The solution is to put all the interfaces/entity into a single folder called `/domain`
 - naming. It is hard to come up with a good naming for packages. And using domain names as package name is not really recommended due to naming collision (`user` as a package name is not good, so is `userimpl`, `usersvc`, `users`).
 - common mistake is that we often add the interface in the same folder as the implementation. It is preferable to place all the interfaces in a separate folder, and the implementation in another folder. The interface folder act as a contract. Whenever we want to split the service/refactor/rewrite, just remove the implementation folder.
+
+
+## Should controller be separated?
+
+It is probably better to put the controller in a separate folder, outside of the implementation. This is because the controller is dependent on the framework used, and we want to keep that layer separate from the implementation folder. Also, controller belongs to the `transporter` category. There can be other ways of transport such as `grpc`, `graphql` etc that just calls the `service` layer.
