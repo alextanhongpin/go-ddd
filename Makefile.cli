@@ -1,0 +1,2 @@
+create_admin:
+	@go run cmd/cli/create_admin/main.go

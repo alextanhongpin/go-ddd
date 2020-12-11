@@ -5,7 +5,7 @@ ENV ?= development
 export
 
 # Can be a space separated list
-include Makefile.db
+include Makefile.db Makefile.cli
 
 start:
 	@go run cmd/server/main.go
