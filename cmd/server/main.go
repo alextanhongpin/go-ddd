@@ -3,21 +3,27 @@
 package main
 
 import (
-	"context"
-	"fmt"
-	"log"
+	"net/http"
 
-	"github.com/alextanhongpin/go-ddd/pkg/usecase/usercrud"
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
 	// Init usecase.
-	uc := usercrud.New(nil)
-	ctl := NewUserController(uc.Service)
-	_ = ctl
-	u, err := uc.Service.FindOne(context.Background(), "1")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("running server", u)
+	//uc := usercrud.New(nil)
+	//ctl := NewUserController(uc.Service)
+	//_ = ctl
+	//u, err := uc.Service.FindOne(context.Background(), "1")
+	//if err != nil {
+	//log.Fatal(err)
+	//}
+	r, stop := newRouter()
+	defer stop()
+
+	r.GET("/health", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"ok": true,
+		})
+	})
+	newServer(r)
 }

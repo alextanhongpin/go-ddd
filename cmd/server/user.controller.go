@@ -1,9 +1,8 @@
 package main
 
 import (
-	"net/http"
-
 	"github.com/alextanhongpin/go-ddd/domain"
+	"github.com/gin-gonic/gin"
 )
 
 // UserController endpoint.
@@ -19,6 +18,6 @@ func NewUserController(svc domain.UserService) *UserController {
 }
 
 // GetUser route.
-func (ctl *UserController) GetUser(w http.ResponseWriter, r *http.Request) {
+func (ctl *UserController) GetUser(c *gin.Context) {
 	// Call service.
 }
