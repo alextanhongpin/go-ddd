@@ -6,12 +6,14 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/pkg/errors"
-
-	ratelimit "github.com/alextanhongpin/pkg/ratelimiter"
 )
 
+type Limiter interface {
+	Allow(key string) bool
+}
+
 // RateLimiter middleware.
-func RateLimiter(limiter ratelimit.Limiter) gin.HandlerFunc {
+func RateLimiter(limiter Limiter) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		clientIP := c.ClientIP()
 		// For per path, consider concatenating the c.Request.URL.Path
