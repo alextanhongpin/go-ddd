@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -10,9 +11,9 @@ import (
 	"time"
 )
 
-func newServer(handler http.Handler) {
+func newServer(cfg Config, handler http.Handler) {
 	srv := &http.Server{
-		Addr:    ":8080",
+		Addr:    fmt.Sprintf(":%d", cfg.Port),
 		Handler: handler,
 	}
 

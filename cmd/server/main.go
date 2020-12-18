@@ -17,7 +17,8 @@ func main() {
 	//if err != nil {
 	//log.Fatal(err)
 	//}
-	r, stop := newRouter()
+	cfg := NewConfig()
+	r, stop := newRouter(cfg)
 	defer stop()
 
 	r.GET("/health", func(c *gin.Context) {
@@ -25,5 +26,5 @@ func main() {
 			"ok": true,
 		})
 	})
-	newServer(r)
+	newServer(cfg, r)
 }

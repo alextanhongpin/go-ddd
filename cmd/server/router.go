@@ -14,13 +14,13 @@ import (
 	"github.com/rs/xid"
 )
 
-func newRouter() (*gin.Engine, func()) {
+func newRouter(cfg Config) (*gin.Engine, func()) {
 	r := gin.New()
 
 	r.Use(gin.Recovery())
 	r.Use(cors.Default())
 
-	l := logger.New("production")
+	l := logger.New(cfg.Env)
 
 	// Custom middlewares.
 	r.Use(middleware.Logger(l, time.RFC3339, true))
