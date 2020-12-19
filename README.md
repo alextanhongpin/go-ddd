@@ -14,3 +14,7 @@ It would be great if we can separate golang domains (user, comment) into individ
 ## Should controller be separated?
 
 It is probably better to put the controller in a separate folder, outside of the implementation. This is because the controller is dependent on the framework used, and we want to keep that layer separate from the implementation folder. Also, controller belongs to the `transporter` category. There can be other ways of transport such as `grpc`, `graphql` etc that just calls the `service` layer.
+
+## cmd folder
+
+The applications (cli or server) are placed in the `cmd` folder. Each app is a composition of different use cases, and it depends on the usage. We can run an api server to allow clients to call the api, as well as running scripts that allows admins to interact with the application directly. Note that it is not wrong to place the main login to run the server in the root. It is just a matter of preference.
