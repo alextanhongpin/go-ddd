@@ -17,18 +17,21 @@ type Config struct {
 }
 
 func NewConfig() Config {
-	host, err := os.Hostname()
-	if err != nil {
-		log.Fatalf("hostnameError: %v", err)
-	}
-
 	cfg := Config{
 		DeployedAt: time.Now(),
-		Host:       host,
+		Host:       mustHostname(),
 	}
 
 	if err := envconfig.Process("", &cfg); err != nil {
 		log.Fatalf("parseConfigError: %v", err)
 	}
 	return cfg
+}
+
+func mustHostname() string {
+	host, err := os.Hostname()
+	if err != nil {
+		log.Fatalf("hostnameError: %v", err)
+	}
+	return host
 }
