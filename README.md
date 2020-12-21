@@ -18,3 +18,17 @@ It is probably better to put the controller in a separate folder, outside of the
 ## cmd folder
 
 The applications (cli or server) are placed in the `cmd` folder. Each app is a composition of different use cases, and it depends on the usage. We can run an api server to allow clients to call the api, as well as running scripts that allows admins to interact with the application directly. Note that it is not wrong to place the main login to run the server in the root. It is just a matter of preference.
+
+
+## Expected workflow
+
+When designing services, we do not want to concern ourselves with cross-cutting concerns such as database, logging, etc. The infrastructure should be pluggable, and the backend engineer should only focus on using the existing tools to add a new service.
+
+Example, when creating a new service:
+- do we need a new table? create a migration file
+- do we need an entity? run the code generation that creates the structs from the database schema
+- do we need a repository? run the code generation tool that generates the repository from the sql queries. define the repository interface in the domain
+- do we need validation? create a dto with structs validation
+- do we need a service? first define the service interface in the domain. Then add the service layer with business logic
+- do we need a facade for services (orchestration of multiple services)? define the interface, then pass down required services through dependency injection
+- do we need a controller? create a controller that calls the service
