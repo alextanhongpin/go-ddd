@@ -1,9 +1,9 @@
-package domain
+package usecase
 
 import "context"
 
-type AuthnService interface {
-	Login(ctx context.Context, dto LoginDto) error
+type Authn interface {
+	Login(ctx context.Context, dto LoginDto) (string, error)
 	Register(ctx context.Context, dto RegisterDto) error
 	ForgotPassword(ctx context.Context) error
 	ResetPassword(ctx context.Context) error

@@ -1,4 +1,4 @@
-package domain
+package usecase
 
 type LoginDto struct {
 	Email    string `json:"email" validate:"email,required" conform:"trim"`

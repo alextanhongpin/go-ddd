@@ -1,7 +1,7 @@
 package domain
 
 type CreateUserDto struct {
-	Name string
+	Name string `validate:"required"`
 }
 
 type UpdateUserDto struct {
