@@ -4,6 +4,7 @@ package authn
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/alextanhongpin/go-ddd/domain"
 	"github.com/alextanhongpin/go-ddd/usecase"
@@ -21,7 +22,7 @@ type UseCase struct {
 func (u *UseCase) Login(ctx context.Context, dto usecase.LoginDto) (string, error) {
 	usr, err := u.userService.FindByEmail(ctx, dto.Email)
 	if err != nil {
-		return "", err
+		return "", fmt.Sprintf("%w: %s", err, ErrInvalidCredentials)
 	}
 
 	if err := u.userService.ComparePassword(ctx, usr, dto.Password); err != nil {
