@@ -1,4 +1,4 @@
-package main
+package server
 
 import (
 	"context"
@@ -11,9 +11,9 @@ import (
 	"time"
 )
 
-func newServer(cfg Config, handler http.Handler) {
+func New(port int, handler http.Handler) {
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", cfg.Port),
+		Addr:    fmt.Sprintf(":%d", port),
 		Handler: handler,
 	}
 
@@ -25,8 +25,8 @@ func newServer(cfg Config, handler http.Handler) {
 		}
 	}()
 
-	// Wait for interrupt signal to gracefully shutdown the server with
-	// a timeout of 5 seconds.
+	// Wait for interrupt signal to gracefully shutdown the server with a timeout
+	// of 5 seconds.
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
@@ -36,6 +36,7 @@ func newServer(cfg Config, handler http.Handler) {
 	// the request it is currently handling
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
+
 	if err := srv.Shutdown(ctx); err != nil {
 		log.Fatal("Server forced to shutdown:", err)
 	}

@@ -1,12 +1,13 @@
-package main
+package router
 
 import (
 	"net/http"
 	"time"
 
-	"github.com/alextanhongpin/go-ddd/pkg/logger"
+	"github.com/alextanhongpin/go-ddd/interface/controller"
 	"github.com/alextanhongpin/go-ddd/pkg/middleware"
 	"github.com/alextanhongpin/pkg/requestid"
+	"go.uber.org/zap"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/pprof"
@@ -14,13 +15,11 @@ import (
 	"github.com/rs/xid"
 )
 
-func newRouter(cfg Config) (*gin.Engine, func()) {
+func NewRouter(l *zap.Logger) *gin.Engine {
 	r := gin.New()
 
 	r.Use(gin.Recovery())
 	r.Use(cors.Default())
-
-	l := logger.New(cfg.Env)
 
 	// Custom middlewares.
 	r.Use(middleware.Logger(l, time.RFC3339, true))
@@ -36,7 +35,18 @@ func newRouter(cfg Config) (*gin.Engine, func()) {
 		})
 	})
 	pprof.Register(r)
-	return r, func() {
-		l.Sync()
-	}
+	return r
+}
+
+func New(l *zap.Logger) *gin.Engine {
+	r := NewRouter(l)
+
+	buildHealth(r)
+
+	return r
+}
+
+func buildHealth(r *gin.Engine) {
+	ctl := controller.NewHealth()
+	r.GET("/health", ctl.GetHealth)
 }
