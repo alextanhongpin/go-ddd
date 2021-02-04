@@ -10,6 +10,7 @@ require (
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
 	github.com/go-redis/redis v6.15.9+incompatible // indirect
 	github.com/golang/protobuf v1.4.3 // indirect
+	github.com/google/uuid v1.2.0
 	github.com/google/wire v0.4.0
 	github.com/grpc-ecosystem/go-grpc-middleware v1.2.2
 	github.com/json-iterator/go v1.1.10 // indirect
@@ -20,6 +21,7 @@ require (
 	github.com/pkg/errors v0.9.1
 	github.com/rs/xid v1.2.1
 	github.com/ugorji/go v1.2.1 // indirect
+	github.com/xtgo/uuid v0.0.0-20140804021211-a0b114877d4c
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0
 	golang.org/x/crypto v0.0.0-20201217014255-9d1352758620 // indirect
